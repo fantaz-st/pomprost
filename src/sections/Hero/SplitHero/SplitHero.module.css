@@ -1,0 +1,130 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  min-height: var(--hero-h-desktop);
+  background: #ffffff;
+}
+
+.container {
+  min-height: var(--hero-h-desktop);
+}
+
+.grid {
+  min-height: var(--hero-h-desktop);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.reverse .textCol {
+  order: 2;
+}
+
+.reverse .mediaCol {
+  order: 1;
+}
+
+.textCol {
+  display: flex;
+}
+
+.panel {
+  width: 100%;
+  min-height: var(--hero-h-desktop);
+  display: flex;
+  align-items: center;
+  background: var(--split-panel-bg);
+  color: var(--split-panel-color);
+  padding: calc(var(--header-h, 72px) + 48px) clamp(24px, 5vw, 72px) 72px;
+}
+
+.stack {
+  width: 100%;
+  max-width: 640px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+  color: inherit;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.title {
+  color: inherit;
+}
+
+.subtitle {
+  color: color-mix(in srgb, var(--split-panel-color) 78%, transparent);
+  max-width: 56ch;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.actions {
+  margin-top: 8px;
+}
+
+.mediaCol {
+  position: relative;
+  min-height: var(--hero-h-desktop);
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: var(--hero-h-desktop);
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .wrap {
+    min-height: var(--hero-h-mobile);
+  }
+
+  .container {
+    min-height: unset;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .grid {
+    min-height: unset;
+    grid-template-columns: 1fr;
+  }
+
+  .reverse .textCol,
+  .reverse .mediaCol {
+    order: initial;
+  }
+
+  .panel {
+    min-height: unset;
+    padding: calc(var(--header-h, 72px) + 28px) 24px 40px;
+  }
+
+  .mediaCol {
+    min-height: 44vh;
+  }
+
+  .media {
+    min-height: 44vh;
+  }
+}

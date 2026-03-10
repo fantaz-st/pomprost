@@ -1,0 +1,247 @@
+.card {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  border-radius: 2rem;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 251, 252, 0.9));
+  border: 1px solid rgba(14, 58, 93, 0.08);
+  box-shadow: 0 18px 50px rgba(16, 42, 67, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(16, 42, 67, 0.11);
+  border-color: rgba(21, 138, 138, 0.16);
+}
+
+.featured,
+.compact {
+  min-height: 0;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(14, 58, 93, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 58, 93, 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.2;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(126, 201, 208, 0.18) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: 0.3;
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 55%, rgba(0, 0, 0, 0.7) 78%, rgba(0, 0, 0, 1) 100%);
+}
+
+.waveOne,
+.waveTwo,
+.waveThree {
+  position: absolute;
+  border-radius: 999px;
+}
+
+.waveOne {
+  width: 135%;
+  height: 280px;
+  left: -16%;
+  bottom: 36px;
+  border: 1.5px solid rgba(171, 227, 231, 0.22);
+  transform: rotate(9deg);
+}
+
+.waveTwo {
+  width: 150%;
+  height: 340px;
+  left: -18%;
+  bottom: -18px;
+  border: 1.5px solid rgba(205, 238, 240, 0.28);
+  transform: rotate(7deg);
+}
+
+.waveThree {
+  width: 135%;
+  height: 260px;
+  left: -8%;
+  top: 26px;
+  border: 1.5px solid rgba(171, 227, 231, 0.12);
+  transform: rotate(-7deg);
+}
+
+.glow {
+  position: absolute;
+  left: -6rem;
+  bottom: -5rem;
+  width: 24rem;
+  height: 12rem;
+  border-radius: 999px;
+  background: rgba(175, 231, 235, 0.16);
+  filter: blur(34px);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 1.75rem 2rem 1.75rem;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.iconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(214, 243, 245, 0.95), rgba(226, 248, 249, 0.95));
+  box-shadow: 0 8px 20px rgba(113, 190, 198, 0.1);
+}
+
+.icon {
+  color: #45b9c2;
+  font-size: 2rem !important;
+}
+
+.textWrap {
+  min-width: 0;
+}
+
+.date {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  margin-bottom: 0.9rem;
+  color: var(--mui-palette-primary-main, #0e3a5d);
+}
+
+.excerpt {
+  margin-bottom: 1.15rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.featured .excerpt {
+  -webkit-line-clamp: 2;
+}
+
+.compact .excerpt {
+  -webkit-line-clamp: 2;
+}
+
+.readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  color: var(--mui-palette-secondary-main, #158a8a);
+}
+
+.arrow {
+  transition: transform 0.22s ease;
+}
+
+.card:hover .arrow {
+  transform: translateX(4px);
+}
+
+.bottomFade {
+  position: relative;
+  z-index: 1;
+  height: 70px;
+  border-top: 1px solid rgba(14, 58, 93, 0.07);
+  background: linear-gradient(180deg, rgba(239, 247, 248, 0.1), rgba(230, 243, 244, 0.45));
+}
+
+.compact .content {
+  padding: 1.5rem 1.5rem 1.4rem;
+}
+
+.compact .topRow {
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.compact .iconWrap {
+  width: 56px;
+  height: 56px;
+}
+
+.compact .bottomFade {
+  height: 56px;
+}
+
+@media (max-width: 900px) {
+  .content {
+    padding: 1.5rem 1.35rem 1.35rem;
+  }
+
+  .topRow {
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .iconWrap {
+    width: 56px;
+    height: 56px;
+  }
+
+  .waveOne {
+    width: 150%;
+    left: -30%;
+    bottom: 28px;
+  }
+
+  .waveTwo {
+    width: 165%;
+    left: -28%;
+    bottom: -30px;
+  }
+
+  .waveThree {
+    width: 150%;
+    left: -20%;
+  }
+}
+
+@media (max-width: 640px) {
+  .content {
+    padding: 1.25rem 1.1rem 1.15rem;
+  }
+
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .iconWrap {
+    width: 52px;
+    height: 52px;
+  }
+
+  .bottomFade {
+    height: 52px;
+  }
+}

@@ -1,0 +1,37 @@
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "aos/dist/aos.css";
+@import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
+:root {
+  --container-max: 1200px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 48px;
+  --space-xl: 72px;
+  --space-2xl: 120px;
+
+  --header-h: 72px;
+}
+
+body {
+  background-color: #fff;
+}
+
+.main-wrapper {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}

@@ -1,0 +1,246 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100svh - 72px);
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 0% 100%, rgba(21, 138, 138, 0.12), transparent 32%), radial-gradient(circle at 100% 65%, rgba(21, 138, 138, 0.1), transparent 24%),
+    linear-gradient(180deg, #f8fbfb 0%, #f2f6f7 100%);
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glowA {
+  position: absolute;
+  width: 42rem;
+  height: 42rem;
+  left: -12rem;
+  top: -10rem;
+  border-radius: 999px;
+  background: rgba(21, 138, 138, 0.12);
+  filter: blur(90px);
+}
+
+.glowB {
+  position: absolute;
+  width: 34rem;
+  height: 34rem;
+  right: -8rem;
+  bottom: -8rem;
+  border-radius: 999px;
+  background: rgba(14, 58, 93, 0.1);
+  filter: blur(90px);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(14, 58, 93, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(14, 58, 93, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 100%);
+}
+
+.arcOne,
+.arcTwo {
+  position: absolute;
+  border: 1px solid rgba(14, 58, 93, 0.1);
+  border-radius: 999px;
+}
+
+.arcOne {
+  width: 90rem;
+  height: 42rem;
+  left: -18rem;
+  bottom: -16rem;
+  transform: rotate(8deg);
+}
+
+.arcTwo {
+  width: 72rem;
+  height: 34rem;
+  right: -16rem;
+  top: -10rem;
+  transform: rotate(-6deg);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 430px);
+  gap: 3rem;
+  align-items: center;
+}
+
+.main {
+  max-width: 50rem;
+}
+
+.kicker {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #158a8a;
+  border-bottom: 1px solid rgba(14, 58, 93, 0.14);
+}
+
+.title {
+  margin-bottom: 1rem;
+  color: #0e3a5d;
+  line-height: 0.95;
+}
+
+.subtitle {
+  max-width: 14ch;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-body), sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #243b53;
+}
+
+.text {
+  max-width: 42rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(14, 58, 93, 0.12);
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: #5b6b79;
+}
+
+.actions {
+  margin-top: 2.25rem;
+}
+
+.actions :global(.MuiButton-root) {
+  min-width: 210px;
+}
+
+.metaCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(14, 58, 93, 0.08);
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(16, 42, 67, 0.08);
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid rgba(14, 58, 93, 0.12);
+}
+
+.metaItem:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.metaLabel {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #158a8a;
+}
+
+.metaValue {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #102a43;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.chips :global(.MuiChip-root) {
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(21, 138, 138, 0.1);
+  color: #0e3a5d;
+  border: 1px solid rgba(21, 138, 138, 0.16);
+}
+
+.chips :global(.MuiChip-label) {
+  padding-inline: 0.85rem;
+  font-weight: 700;
+}
+
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .subtitle {
+    max-width: 100%;
+  }
+
+  .metaCard {
+    max-width: 38rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .container {
+    padding-top: 6.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .grid {
+    background-size: 44px 44px;
+  }
+
+  .title {
+    margin-bottom: 0.9rem;
+  }
+
+  .subtitle {
+    font-size: clamp(1.35rem, 7vw, 2rem);
+  }
+
+  .text {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .actions :global(.MuiButton-root) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .metaCard {
+    padding: 1.35rem;
+    border-radius: 1.35rem;
+  }
+}

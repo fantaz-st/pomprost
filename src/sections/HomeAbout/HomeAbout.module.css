@@ -1,0 +1,28 @@
+.wrap {
+  width: 100%;
+}
+
+.container {
+  padding-bottom: 0;
+}
+
+.title {
+  margin: 0;
+  color: #0b1f2a;
+  letter-spacing: -0.02em;
+}
+
+.text {
+  margin-top: 14px;
+}
+
+.ctaLink {
+  display: inline-flex;
+  margin-top: 18px;
+  text-decoration: none;
+}
+
+.cta {
+  border-radius: 999px;
+  padding: 10px 14px;
+}

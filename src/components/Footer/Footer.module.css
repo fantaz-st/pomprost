@@ -1,0 +1,136 @@
+.wrap {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+}
+
+.container {
+  padding-top: 48px;
+  padding-bottom: 28px;
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.4fr) minmax(200px, 260px) minmax(200px, 260px);
+  column-gap: 72px;
+  row-gap: 36px;
+  align-items: start;
+}
+
+.brandTitle {
+  color: #0b1f2a;
+  font-weight: 700;
+}
+
+.brandText {
+  margin-top: 10px;
+  max-width: 520px;
+  color: rgba(11, 31, 42, 0.72);
+  line-height: 1.7;
+}
+
+.euLogos {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  max-width: 520px;
+}
+
+.euLogo {
+  height: auto;
+  width: min(200px, 100%);
+  max-width: 100%;
+  flex: 1 1 180px;
+  object-fit: contain;
+}
+
+
+.col {
+  justify-self: start;
+}
+
+.colTitle {
+  color: rgba(11, 31, 42, 0.7);
+  letter-spacing: 0.14em;
+}
+
+.colLinks {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.link {
+  color: #0b1f2a;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.link:hover {
+  color: #003357;
+}
+
+.bottom {
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.copy {
+  color: rgba(11, 31, 42, 0.7);
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bottomLink {
+  color: rgba(11, 31, 42, 0.7);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+
+.bottomLink:hover {
+  color: #003357;
+}
+
+@media (max-width: 900px) {
+  .topGrid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    row-gap: 32px;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+/* @media (max-width: 420px) {
+  .euLogos {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .euLogo {
+    width: min(240px, 100%);
+    flex: 0 0 auto;
+  }
+} */

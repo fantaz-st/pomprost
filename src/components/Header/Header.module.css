@@ -1,0 +1,287 @@
+.container {
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  overflow: visible;
+  height: var(--header-h);
+}
+
+.solid {
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.transparent {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.sticky {
+  position: sticky;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.notSticky {
+  position: relative;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 12px;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: visible;
+}
+
+.logo {
+  position: relative;
+  height: 36px;
+  min-width: 120px;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+}
+
+.logoImage {
+  object-fit: contain;
+}
+
+.logoText {
+  color: #0b1f2a;
+}
+
+.transparent .logoText {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.transparent.invertText .logoText {
+  color: #0b1f2a;
+}
+
+.menuDesktop {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  overflow: visible;
+}
+
+.menuItem {
+  position: relative;
+}
+
+.link {
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 10px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #0b1f2a;
+}
+
+.solid .link:hover {
+  color: #003357;
+}
+
+.transparent .link {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.transparent .link:hover {
+  color: #ffffff;
+}
+
+.transparent.invertText .link {
+  color: #0b1f2a;
+}
+
+.transparent.invertText .link:hover {
+  color: #003357;
+}
+
+.arrow {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+  opacity: 0.7;
+}
+
+.transparent .arrow {
+  opacity: 0.9;
+}
+
+.transparent.invertText .arrow {
+  opacity: 0.7;
+}
+
+.menuItem:hover .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 200px;
+  background: white;
+  padding: 10px 0;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: 0.18s ease;
+  z-index: 2000;
+}
+
+.menuItem:hover .dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  height: 12px;
+}
+
+.dropdownLink {
+  display: block;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: #0b1f2a;
+  text-decoration: none;
+}
+
+.dropdownLink:hover {
+  background: rgba(0, 51, 87, 0.06);
+}
+
+.menuMobile {
+  display: none;
+}
+
+.iconBtn {
+  color: #0b1f2a;
+}
+
+.transparent .iconBtn {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.transparent.invertText .iconBtn {
+  color: #0b1f2a;
+}
+
+@media (max-width: 900px) {
+  .menuDesktop {
+    display: none;
+  }
+
+  .menuMobile {
+    display: block;
+  }
+
+  .dropdown {
+    display: none;
+  }
+}
+
+.drawer {
+  width: min(420px, 90vw);
+  height: 100%;
+  padding: 18px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.drawerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawerItem {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.drawerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 12px;
+}
+
+.drawerLink {
+  flex: 1;
+  font-weight: 600;
+  color: #0b1f2a;
+  text-decoration: none;
+  padding: 6px 2px;
+}
+
+.expandBtn {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.expandBtnOpen {
+  transform: rotate(180deg);
+}
+
+.drawerSub {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.drawerSubOpen {
+  max-height: 500px;
+}
+
+.drawerSubLink {
+  display: block;
+  padding: 10px 14px;
+  color: #0b1f2a;
+  text-decoration: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(0, 51, 87, 0.03);
+}
