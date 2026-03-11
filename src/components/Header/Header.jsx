@@ -104,7 +104,7 @@ const Header = ({ menuItems = [], locale }) => {
           })}
         </nav>
 
-        {/* <LanguageSwitch locale={locale} /> */}
+        <LanguageSwitch locale={locale} />
 
         <div className={classes.menuMobile}>
           <IconButton aria-label="Open menu" onClick={openDrawer} className={classes.iconBtn}>
