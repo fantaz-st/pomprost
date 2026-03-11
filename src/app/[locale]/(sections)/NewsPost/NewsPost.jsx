@@ -15,7 +15,6 @@ export default async function NewsPost({ params, backHref, backLabel }) {
 
   const data = await wpFetch(POST_BY_SLUG, { slug, lang: wpLangFromLocale(locale) });
   const p = data?.posts?.nodes?.[0];
-  console.log(p);
   if (!p) return notFound();
 
   const blocks = Array.isArray(p.blocks) ? p.blocks : typeof p.blocks === "string" ? JSON.parse(p.blocks) : [];
