@@ -1,11 +1,69 @@
 .wrap {
+  position: relative;
+  overflow: hidden;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbfc 100%);
+}
+
+/* dotted background */
+.wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(126, 201, 208, 0.16) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: 0.35;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.2) 25%, rgba(0, 0, 0, 0.8) 70%, transparent 100%);
+}
+
+/* subtle glow gradient */
+.wrap::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -140px -10%;
+  height: 420px;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at left bottom, rgba(175, 231, 235, 0.22), transparent 38%), radial-gradient(ellipse at right center, rgba(175, 231, 235, 0.14), transparent 30%);
+  border-top: 1.5px solid rgba(171, 227, 231, 0.18);
+  border-radius: 50%;
+  transform: rotate(4deg);
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   padding-top: 48px;
   padding-bottom: 28px;
+}
+
+/* curved stripes */
+
+.container::before,
+.container::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+}
+
+.container::before {
+  width: 140%;
+  height: 260px;
+  left: -18%;
+  bottom: 22px;
+  border: 1.5px solid rgba(171, 227, 231, 0.18);
+  transform: rotate(8deg);
+}
+
+.container::after {
+  width: 155%;
+  height: 320px;
+  left: -12%;
+  bottom: -42px;
+  border: 1.5px solid rgba(205, 238, 240, 0.24);
+  transform: rotate(5deg);
 }
 
 .topGrid {
@@ -44,7 +102,6 @@
   flex: 1 1 180px;
   object-fit: contain;
 }
-
 
 .col {
   justify-self: start;
@@ -120,17 +177,16 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .container::before {
+    width: 180%;
+    left: -42%;
+    bottom: 12px;
+  }
+
+  .container::after {
+    width: 195%;
+    left: -36%;
+    bottom: -56px;
+  }
 }
-
-
-/* @media (max-width: 420px) {
-  .euLogos {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .euLogo {
-    width: min(240px, 100%);
-    flex: 0 0 auto;
-  }
-} */

@@ -20,11 +20,6 @@
   border-color: rgba(21, 138, 138, 0.16);
 }
 
-.featured,
-.compact {
-  min-height: 0;
-}
-
 .bg {
   position: absolute;
   inset: 0;
@@ -97,7 +92,7 @@
 .content {
   position: relative;
   z-index: 1;
-  padding: 1.75rem 2rem 1.75rem;
+  padding: 1.75rem 2rem;
 }
 
 .topRow {
@@ -140,15 +135,8 @@
   margin-bottom: 1.15rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-}
-
-.featured .excerpt {
-  -webkit-line-clamp: 2;
-}
-
-.compact .excerpt {
-  -webkit-line-clamp: 2;
 }
 
 .readMore {
@@ -167,35 +155,9 @@
   transform: translateX(4px);
 }
 
-.bottomFade {
-  position: relative;
-  z-index: 1;
-  height: 70px;
-  border-top: 1px solid rgba(14, 58, 93, 0.07);
-  background: linear-gradient(180deg, rgba(239, 247, 248, 0.1), rgba(230, 243, 244, 0.45));
-}
-
-.compact .content {
-  padding: 1.5rem 1.5rem 1.4rem;
-}
-
-.compact .topRow {
-  grid-template-columns: 56px minmax(0, 1fr);
-  gap: 1rem;
-}
-
-.compact .iconWrap {
-  width: 56px;
-  height: 56px;
-}
-
-.compact .bottomFade {
-  height: 56px;
-}
-
 @media (max-width: 900px) {
   .content {
-    padding: 1.5rem 1.35rem 1.35rem;
+    padding: 1.5rem 1.35rem;
   }
 
   .topRow {
@@ -228,7 +190,7 @@
 
 @media (max-width: 640px) {
   .content {
-    padding: 1.25rem 1.1rem 1.15rem;
+    padding: 1.25rem 1.1rem;
   }
 
   .topRow {
@@ -238,10 +200,6 @@
 
   .iconWrap {
     width: 52px;
-    height: 52px;
-  }
-
-  .bottomFade {
     height: 52px;
   }
 }

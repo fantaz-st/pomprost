@@ -1,22 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
 import dayjs from "dayjs";
 import classes from "./PostCard.module.css";
 
-export default function PostCard({ slug, title, date, excerpt, locale = "hr", featured = false }) {
+export default function PostCard({ slug, title, date, excerpt, locale = "hr" }) {
   const base = locale === "hr" ? "/hr/novosti" : "/en/news";
 
-  const cleanExcerpt =
-    excerpt
-      ?.replace(/<[^>]+>/g, "")
-      ?.replace(/&hellip;/g, "...")
-      ?.trim() || "";
+  const cleanExcerpt = excerpt
+    ?.replace(/<[^>]+>/g, "")
+    ?.replace(/&hellip;/g, "...")
+    ?.trim();
 
   return (
-    <Link href={`${base}/${slug}`} className={`${classes.card} ${featured ? classes.featured : classes.compact}`}>
+    <Link href={`${base}/${slug}`} className={classes.card}>
       <div className={classes.bg}>
         <div className={classes.grid} />
         <div className={classes.dots} />
@@ -26,7 +25,7 @@ export default function PostCard({ slug, title, date, excerpt, locale = "hr", fe
         <div className={classes.glow} />
       </div>
 
-      <Box className={classes.content}>
+      <div className={classes.content}>
         <div className={classes.topRow}>
           <div className={classes.iconWrap}>
             <NotificationsNoneRoundedIcon className={classes.icon} />
@@ -34,18 +33,18 @@ export default function PostCard({ slug, title, date, excerpt, locale = "hr", fe
 
           <div className={classes.textWrap}>
             <Typography variant="overline" color="text.secondary" className={classes.date}>
-              {date ? dayjs(date).format(locale === "hr" ? "D.M.YYYY." : "D MMM YYYY") : ""}
+              {date ? dayjs(date).format(locale === "hr" ? "D. M. YYYY." : "D MMM YYYY") : ""}
             </Typography>
 
-            <Typography variant={featured ? "h2" : "h3"} className={classes.title}>
+            <Typography variant="h3" className={classes.title}>
               {title}
             </Typography>
 
-            {cleanExcerpt && (
+            {cleanExcerpt ? (
               <Typography variant="body1" color="text.secondary" className={classes.excerpt}>
                 {cleanExcerpt}
               </Typography>
-            )}
+            ) : null}
 
             <Typography component="span" className={classes.readMore}>
               {locale === "hr" ? "Pročitaj vijest" : "Read more"}
@@ -53,9 +52,7 @@ export default function PostCard({ slug, title, date, excerpt, locale = "hr", fe
             </Typography>
           </div>
         </div>
-      </Box>
-
-      {/* <div className={classes.bottomFade} /> */}
+      </div>
     </Link>
   );
 }

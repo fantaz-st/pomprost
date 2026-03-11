@@ -6,6 +6,7 @@ import BlockRenderer from "@/components/BlockRenderer/BlockRenderer";
 import Image from "next/image";
 import classes from "./NewsPost.module.css";
 import { wpLangFromLocale } from "@/lib/lang";
+import { fmtDate } from "@/functions/date";
 
 export const revalidate = 300;
 
@@ -14,6 +15,7 @@ export default async function NewsPost({ params, backHref, backLabel }) {
 
   const data = await wpFetch(POST_BY_SLUG, { slug, lang: wpLangFromLocale(locale) });
   const p = data?.posts?.nodes?.[0];
+  console.log(p);
   if (!p) return notFound();
 
   const blocks = Array.isArray(p.blocks) ? p.blocks : typeof p.blocks === "string" ? JSON.parse(p.blocks) : [];
@@ -24,16 +26,19 @@ export default async function NewsPost({ params, backHref, backLabel }) {
         <a href={backHref} className={classes.back}>
           ← {backLabel}
         </a>
-
-        {/* {p.date ? <div className={classes.date}>{fmtDate(p.date)}</div> : null} */}
       </div>
 
-      <Typography variant="h2" className={classes.title} data-aos="fade-up">
+      <Typography variant="h2" className={classes.title} data-aos="fade-up" mb={3}>
         {p.title}
       </Typography>
+      {p.date ? (
+        <div className={classes.date} data-aos="fade-up" data-aos-delay="150">
+          {fmtDate(p.date)}
+        </div>
+      ) : null}
 
       {p.featuredImage?.node?.sourceUrl ? (
-        <Box className={classes.hero} data-aos="fade-up" data-aos-delay="150">
+        <Box className={classes.hero} data-aos="fade-up" data-aos-delay="300">
           <Image
             src={p.featuredImage.node.sourceUrl}
             alt={p.featuredImage.node.altText || p.title}
@@ -45,7 +50,7 @@ export default async function NewsPost({ params, backHref, backLabel }) {
         </Box>
       ) : null}
 
-      <div className={classes.content} data-aos="fade-up" data-aos-delay={p.featuredImage ? "220" : "120"}>
+      <div className={classes.content} data-aos="fade-up" data-aos-delay={p.featuredImage ? "450" : "300"}>
         {blocks.map((block, i) => (
           <BlockRenderer block={block} key={block?.clientId || i} />
         ))}
