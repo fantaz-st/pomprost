@@ -1,0 +1,149 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  padding-bottom: 4rem;
+}
+
+.wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(126, 201, 208, 0.16) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: 0.32;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.18) 20%, rgba(0, 0, 0, 0.75) 70%, transparent 100%);
+  z-index: 0;
+}
+
+.wrap::after {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -120px;
+  height: 260px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(175, 231, 235, 0.2), transparent 70%);
+  filter: blur(24px);
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.container::before,
+.container::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  z-index: 0;
+}
+
+.container::before {
+  width: 150%;
+  height: 260px;
+  left: -24%;
+  bottom: 18px;
+  border: 1.5px solid rgba(151, 220, 226, 0.28);
+  transform: rotate(7deg);
+}
+
+.container::after {
+  width: 165%;
+  height: 320px;
+  left: -18%;
+  bottom: -36px;
+  border: 1.5px solid rgba(184, 231, 235, 0.32);
+  transform: rotate(4deg);
+}
+
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.grid::before {
+  content: "";
+  position: absolute;
+  width: 160%;
+  height: 220px;
+  left: -28%;
+  bottom: -34px;
+  border: 1.5px solid rgba(171, 227, 231, 0.24);
+  border-radius: 999px;
+  transform: rotate(8deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  min-height: 120px;
+}
+
+.number {
+  position: absolute;
+  top: 10px;
+  left: 16px;
+  font-size: 64px;
+  font-weight: 700;
+  opacity: 0.08;
+  line-height: 1;
+}
+
+.ctaLink {
+  display: inline-flex;
+  text-decoration: none;
+  margin-top: 24px;
+}
+
+.cta {
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .container::before {
+    width: 190%;
+    left: -48%;
+    bottom: 10px;
+  }
+
+  .container::after {
+    width: 210%;
+    left: -42%;
+    bottom: -44px;
+  }
+
+  .grid::before {
+    width: 210%;
+    left: -55%;
+    bottom: -36px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

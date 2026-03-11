@@ -12,6 +12,7 @@ import ListItemBlock from "@/elements/ListItemBlock/ListItemBlock";
 import GroupBlock from "@/elements/GroupBlock/GroupBlock";
 import DetailsBlock from "@/elements/DetailsBlock/DetailsBlock";
 import TableBlock from "@/elements/TableBlock/TableBlock";
+import SeparatorBlock from "@/elements/SeparatorBlock/SeparatorBlock";
 
 export default function BlockRenderer({ block }) {
   if (!block) return null;
@@ -35,6 +36,8 @@ export default function BlockRenderer({ block }) {
       return <ListBlock block={block} />;
     case "core/list-item":
       return <ListItemBlock block={block} />;
+    case "core/separator":
+      return <SeparatorBlock attributes={attributes} />;
     case "core/group":
       return <GroupBlock block={block} />;
     case "core/details": {

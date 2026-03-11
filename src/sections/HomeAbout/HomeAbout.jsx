@@ -4,20 +4,21 @@ import classes from "./HomeAbout.module.css";
 
 const copy = {
   hr: {
-    title: "O projektu",
-    p1: "Trenutno stanje istraživanja (State of the Art) U pomorskom sektoru, digitalna navigacija za male brodove i rekreativna plovila još uvijek je nedovoljno razvijena u odnosu na komercijalne i profesionalne sustave. Globalno prisutne platforme poput Navionics, iSailor i Garmin Marine osiguravaju navigacijske informacije temeljem vektorskih karata, ali ne pružaju lokalizirane, vizualne i lako razumljive prikaze stvarnog stanja na terenu. To se osobito odnosi na korisnike bez formalne pomorske edukacije – vlasnike manjih plovila, turiste i rekreativne nautičare.",
-    p2: "Postojeće tekstualne publikacije poput &apos;Peljar&apos; i obalnih vodiča ne zadovoljavaju potrebe digitalno orijentiranih korisnika koji preferiraju interaktivne i multimedijalne alate (npr. Google Earth, Street View). Iako tehnologije poput dronova, 360° kamera i naprednih geoprostornih sustava već postoje, njihova primjena u kontekstu lokalne sigurnosti plovidbe još nije sustavno istražena ni integrirana.",
-    p3: "Cilj istraživanja jest razviti i validirati funkcionalni digitalni peljar koji omogućuje korisnicima pristup multimedijalnim navigacijskim informacijama temeljenim na stvarnim vizualnim podacima i geoprostornoj analitici, te istražiti njegovu učinkovitost u kontekstu sigurnosti plovidbe malih brodova.",
+    title: "Opis projekta",
+    p1: "Projekt PomProST razvijen je kao odgovor na uočene nedostatke u sigurnosti, zaštiti i učinkovitosti pomorskog prometa u Splitsko-dalmatinskoj županiji. Istraživanje provodi Pomorski fakultet u Splitu u suradnji s institucijama koje upravljaju lučkim područjima, s ciljem jačanja održivosti pomorskog sustava u skladu sa zahtjevima zelene i digitalne tranzicije.",
+    p2: "Projekt analizira promet brodova, kvalitetu zraka i razinu buke te razvija prijedloge rješenja za povećanje sigurnosti, operativne učinkovitosti i digitalizacije pomorskog prometa. Predložena rješenja testirat će se u praksi kroz razvoj operativnih koncepata upravljanja lukama i sustava za praćenje okolišnih pokazatelja u stvarnom vremenu.",
+    p3: "Rezultati projekta doprinijet će razvoju strateških dokumenata i politika održivog razvoja pomorskog sektora u Splitsko-dalmatinskoj županiji te jačanju znanstvene izvrsnosti i institucionalnog kapaciteta Pomorskog fakulteta u Splitu.",
     cta: "Više o projektu",
     href: "/projekt/o-projektu",
   },
+
   en: {
     title: "About the Project",
-    p1: "Current state of research (State of the Art) In the maritime sector, digital navigation for small vessels and recreational boats is still insufficiently developed compared to commercial and professional systems. Globally available platforms such as Navionics, iSailor and Garmin Marine provide navigation information based on vector charts, but they do not offer localized, visual and easily understandable representations of the real conditions at sea. This is particularly relevant for users without formal maritime education – owners of small vessels, tourists and recreational boaters.",
-    p2: "Existing textual publications such as the 'Pilot Book' and coastal guides do not meet the needs of digitally oriented users who prefer interactive and multimedia tools (e.g. Google Earth, Street View). Although technologies such as drones, 360° cameras and advanced geospatial systems already exist, their application in the context of local navigation safety has not yet been systematically researched or integrated.",
-    p3: "The aim of the research is to develop and validate a functional digital pilot guide that enables users to access multimedia navigation information based on real visual data and geospatial analytics, and to examine its effectiveness in the context of navigation safety for small vessels.",
+    p1: "The PomProST project was initiated to address identified shortcomings in the safety, security and efficiency of maritime traffic in the Split-Dalmatia County. The research is conducted by the Faculty of Maritime Studies in Split in cooperation with institutions managing port areas, aiming to improve the sustainability of the maritime system in line with the green and digital transition.",
+    p2: "The project analyses vessel traffic, air quality and noise levels while developing proposals to improve safety, operational efficiency and the level of digitalisation of maritime transport. Proposed solutions will be tested in practice through operational port management concepts and real-time environmental monitoring systems.",
+    p3: "The results of the project will support the development of strategic documents and policies for the sustainable development of the maritime sector in Split-Dalmatia County and strengthen the scientific excellence and institutional capacity of the Faculty of Maritime Studies in Split.",
     cta: "More about the project",
-    href: "/projekt/o-projektu",
+    href: "/project/about",
   },
 };
 
