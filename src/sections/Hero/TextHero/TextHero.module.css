@@ -106,7 +106,6 @@
 }
 
 .subtitle {
-  max-width: 14ch;
   margin-bottom: 1.5rem;
   font-family: var(--font-body), sans-serif;
   font-size: clamp(1.5rem, 2.5vw, 2.6rem);
@@ -117,7 +116,6 @@
 }
 
 .text {
-  max-width: 42rem;
   padding-top: 1.5rem;
   border-top: 1px solid rgba(14, 58, 93, 0.12);
   font-size: 1.08rem;
