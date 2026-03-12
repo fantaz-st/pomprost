@@ -3,6 +3,7 @@ import { wpFetchAllMenuItems } from "@/lib/wpFetchAllMenuItems";
 import createDataTree from "@/functions/createDataTree";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import CookieNotice from "@/components/CookieNotice/CookieNotice";
 
 export default async function LocaleLayout({ children, params }) {
   const { locale } = await params;
@@ -16,7 +17,7 @@ export default async function LocaleLayout({ children, params }) {
       <Header menuItems={menuItems} locale={locale} />
 
       <main className="content">{children}</main>
-
+      <CookieNotice locale={locale} />
       <Footer menuItems={menuItems} locale={locale} />
     </div>
   );
