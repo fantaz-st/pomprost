@@ -62,11 +62,12 @@ export default function Footer({ menuItems = [], locale }) {
           </Typography>
 
           <div className={classes.bottomLinks}>
-            {(site.footer?.bottomLinks || []).map((l, i) => (
-              <Link key={i} href={l.href} className={classes.bottomLink}>
-                {l.label}
-              </Link>
-            ))}
+            <Link href={locale === "hr" ? "/hr/politika-privatnosti" : "/en/privacy-policy"} className={classes.bottomLink}>
+              {locale === "hr" ? "Politika privatnosti" : "Privacy Policy"}
+            </Link>
+            <Link href={locale === "hr" ? "/hr/impressum" : "/en/imprint"} className={classes.bottomLink}>
+              {locale === "hr" ? "Impressum" : "Imprint"}
+            </Link>
           </div>
         </div>
       </Container>

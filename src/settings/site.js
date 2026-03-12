@@ -70,11 +70,6 @@ const site = {
       { label: "University of Split", href: "https://www.unist.hr" },
     ],
 
-    bottomLinks: [
-      { label: "Privacy", href: "/privacy" },
-      { label: "Impressum", href: "/impressum" },
-    ],
-
     copyright: {
       owner: {
         en: "Faculty of Maritime Studies, University of Split",
