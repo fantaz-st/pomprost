@@ -76,8 +76,10 @@ const site = {
     ],
 
     copyright: {
-      owner: "Faculty of Maritime Studies, University of Split",
-      vlasnik: "Sveučilište u Splitu, Pomorski fakultet",
+      owner: {
+        en: "Faculty of Maritime Studies, University of Split",
+        hr: "Sveučilište u Splitu, Pomorski fakultet",
+      },
       year: "auto",
     },
   },

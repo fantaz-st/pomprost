@@ -82,11 +82,11 @@ export default function TextHero({ locale = "hr" }) {
                 </Button>
               </Link>
 
-              <Link href={t.secondaryCta.href} className={classes.buttonLink}>
+              {/* <Link href={t.secondaryCta.href} className={classes.buttonLink}>
                 <Button variant="outlined" color="primary">
                   {t.secondaryCta.label}
                 </Button>
-              </Link>
+              </Link> */}
             </Stack>
           </div>
 

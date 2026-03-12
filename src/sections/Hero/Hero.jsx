@@ -11,7 +11,6 @@ export default function Hero({ locale }) {
   switch (hero.variant) {
     case "background":
       return <BackgroundHero locale={locale} hero={hero} />;
-
     case "split":
       return <SplitHero locale={locale} hero={hero} />;
     case "text":
