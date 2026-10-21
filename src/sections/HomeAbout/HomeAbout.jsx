@@ -9,7 +9,7 @@ const copy = {
     p2: "Projekt analizira promet brodova, kvalitetu zraka i razinu buke te razvija prijedloge rješenja za povećanje sigurnosti, operativne učinkovitosti i digitalizacije pomorskog prometa. Predložena rješenja testirat će se u praksi kroz razvoj operativnih koncepata upravljanja lukama i sustava za praćenje okolišnih pokazatelja u stvarnom vremenu.",
     p3: "Rezultati projekta doprinijet će razvoju strateških dokumenata i politika održivog razvoja pomorskog sektora u Splitsko-dalmatinskoj županiji te jačanju znanstvene izvrsnosti i institucionalnog kapaciteta Pomorskog fakulteta u Splitu.",
     cta: "Više o projektu",
-    href: "/projekt/o-projektu",
+    href: "/hr/projekt/o-projektu",
   },
 
   en: {
@@ -18,7 +18,7 @@ const copy = {
     p2: "The project analyses vessel traffic, air quality and noise levels while developing proposals to improve safety, operational efficiency and the level of digitalisation of maritime transport. Proposed solutions will be tested in practice through operational port management concepts and real-time environmental monitoring systems.",
     p3: "The results of the project will support the development of strategic documents and policies for the sustainable development of the maritime sector in Split-Dalmatia County and strengthen the scientific excellence and institutional capacity of the Faculty of Maritime Studies in Split.",
     cta: "More about the project",
-    href: "/project/about",
+    href: "/en/project/about",
   },
 };
 

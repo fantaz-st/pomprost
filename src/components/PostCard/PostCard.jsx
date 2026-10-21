@@ -1,21 +1,16 @@
-"use client";
-
 import Link from "next/link";
 import { Typography } from "@mui/material";
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
-import dayjs from "dayjs";
+import { fmtDateShort } from "@/functions/date";
+import { stripHtml } from "@/lib/content";
+import { newsHref } from "@/lib/urls";
 import classes from "./PostCard.module.css";
 
 export default function PostCard({ slug, title, date, excerpt, locale = "hr" }) {
-  const base = locale === "hr" ? "/hr/novosti" : "/en/news";
-
-  const cleanExcerpt = excerpt
-    ?.replace(/<[^>]+>/g, "")
-    ?.replace(/&hellip;/g, "...")
-    ?.trim();
+  const cleanExcerpt = stripHtml(excerpt);
 
   return (
-    <Link href={`${base}/${slug}`} className={classes.card}>
+    <Link href={newsHref(locale, slug)} className={classes.card}>
       <div className={classes.bg}>
         <div className={classes.grid} />
         <div className={classes.dots} />
@@ -33,7 +28,7 @@ export default function PostCard({ slug, title, date, excerpt, locale = "hr" }) 
 
           <div className={classes.textWrap}>
             <Typography variant="overline" color="text.secondary" className={classes.date}>
-              {date ? dayjs(date).format(locale === "hr" ? "D. M. YYYY." : "D MMM YYYY") : ""}
+              {date ? fmtDateShort(date, locale) : ""}
             </Typography>
 
             <Typography variant="h3" className={classes.title}>

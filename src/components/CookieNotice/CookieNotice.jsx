@@ -11,13 +11,13 @@ const copy = {
   hr: {
     text: "Ova web stranica koristi funkcionalni kolačić za pamćenje odabranog jezika.",
     link: "Saznaj više",
-    href: "/hr/privacy",
+    href: "/hr/politika-privatnosti",
     button: "U redu",
   },
   en: {
     text: "This website uses a functional cookie to remember your selected language.",
     link: "Learn more",
-    href: "/en/privacy",
+    href: "/en/privacy-policy",
     button: "OK",
   },
 };

@@ -2,6 +2,8 @@ const site = {
   name: "PomProST",
   description: "Unaprjeđenje održivosti pomorskog prometa u Splitsko-dalmatinskoj županiji",
   locale: "en",
+  // Absolute origin for canonical/hreflang URLs, Open Graph and the sitemap.
+  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
 
   menu: {
     hr: "main-menu-hr",
@@ -38,7 +40,7 @@ const site = {
         title: "PomProST",
         subtitle: "Improvement of Maritime Traffic Sustainability in Split-Dalmatia County",
         cta: {
-          href: "/en/about-project",
+          href: "/en/project/about",
           label: "Learn More",
         },
       },
@@ -47,7 +49,7 @@ const site = {
         title: "PomProST",
         subtitle: "Unaprjeđenje održivosti pomorskog prometa u Splitsko-dalmatinskoj županiji",
         cta: {
-          href: "/hr/o-projektu",
+          href: "/hr/projekt/o-projektu",
           label: "Saznaj više",
         },
       },

@@ -1,4 +1,3 @@
-"use client";
 import { Typography, Box } from "@mui/material";
 import ListBlock from "../ListBlock/ListBlock";
 import parseHtml from "@/functions/parser";

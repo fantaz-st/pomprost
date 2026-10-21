@@ -14,7 +14,7 @@ const copy = {
       "Institucionalni kapacitet",
     ],
     cta: "Više o radnim paketima",
-    href: "/radni-paketi",
+    href: "/hr/radni-paketi",
   },
 
   en: {
@@ -28,7 +28,7 @@ const copy = {
       "Institutional Capacity",
     ],
     cta: "Learn more about work packages",
-    href: "/work-packages",
+    href: "/en/work-packages",
   },
 };
 

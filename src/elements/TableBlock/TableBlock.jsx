@@ -1,4 +1,3 @@
-"use client";
 import parseHtml from "@/functions/parser";
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 

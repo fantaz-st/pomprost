@@ -81,6 +81,7 @@ export const POST_BY_SLUG = `
         title
         date
         modified
+        excerpt
         featuredImage { node { sourceUrl altText } }
         blocks(attributes: true, dynamicContent: true)
         language { slug }
@@ -108,6 +109,7 @@ export const ALL_PAGES = `
         slug
         uri
         title
+        modified
         databaseId
         parentDatabaseId
         language { slug }

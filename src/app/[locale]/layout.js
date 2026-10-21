@@ -1,5 +1,6 @@
 import site from "@/settings/site";
 import { wpFetchAllMenuItems } from "@/lib/wpFetchAllMenuItems";
+import { wpUriToHref } from "@/lib/urls";
 import createDataTree from "@/functions/createDataTree";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -9,8 +10,12 @@ export default async function LocaleLayout({ children, params }) {
   const { locale } = await params;
   const menuName = site.menu?.[locale] || site.menu?.hr || site.menu;
 
-  const flat = await wpFetchAllMenuItems(menuName);
-  const menuItems = createDataTree(flat);
+  // A WP outage should cost us the menu, not every page on the site.
+  const flat = await wpFetchAllMenuItems(menuName).catch((err) => {
+    console.error("Failed to load menu", menuName, err);
+    return [];
+  });
+  const menuItems = createDataTree(flat.map((item) => ({ ...item, uri: wpUriToHref(item.uri, locale) })));
 
   return (
     <div className="layout">

@@ -3,10 +3,11 @@ const createDataTree = (dataset) => {
   dataset.forEach((aData) => (hashTable[aData.databaseId] = { ...aData, childNodes: [] }));
   const dataTree = [];
   dataset.forEach((aData) => {
-    if (aData.parentDatabaseId) hashTable[aData.parentDatabaseId].childNodes.push(hashTable[aData.databaseId]);
+    // Items whose parent is missing (e.g. unpublished) are promoted to the root instead of crashing.
+    const parent = aData.parentDatabaseId ? hashTable[aData.parentDatabaseId] : null;
+    if (parent) parent.childNodes.push(hashTable[aData.databaseId]);
     else dataTree.push(hashTable[aData.databaseId]);
   });
-  // console.log(dataTree);
   return dataTree;
 };
 

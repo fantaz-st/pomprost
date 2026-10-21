@@ -1,4 +1,3 @@
-"use client";
 import ParagraphBlock from "@/elements/ParagraphBlock/ParagraphBlock";
 import HeadingBlock from "@/elements/HeadingBlock/HeadingBlock";
 import QuoteBlock from "@/elements/QuoteBlock/QuoteBlock";

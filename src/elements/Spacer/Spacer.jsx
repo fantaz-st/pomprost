@@ -1,4 +1,3 @@
-"use client";
 import { Box, Divider } from "@mui/material";
 
 export default function Spacer({ height, divider }) {

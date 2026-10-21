@@ -67,7 +67,7 @@ const Header = ({ menuItems = [], locale }) => {
     <header className={headerClassName} style={style}>
       <div className={classes.inner}>
         <div className={classes.logo}>
-          <Link href="/" className={classes.logoLink} onClick={closeDrawer}>
+          <Link href={`/${locale}`} className={classes.logoLink} onClick={closeDrawer}>
             {site.logo ? (
               <Image src={site.logo} fill alt={site.name} className={classes.logoImage} />
             ) : (

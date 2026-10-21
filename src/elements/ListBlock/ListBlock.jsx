@@ -1,4 +1,3 @@
-"use client";
 import { List, ListItem } from "@mui/material";
 import ListItemBlock from "@/elements/ListItemBlock/ListItemBlock";
 import classes from "./ListBlock.module.css";

@@ -1,4 +1,3 @@
-"use client";
 import parseHtml from "@/functions/parser";
 import { Box } from "@mui/material";
 

@@ -1,5 +1,3 @@
-"use client";
-
 import PostCard from "@/components/PostCard/PostCard";
 import classes from "./NewsGrid.module.css";
 

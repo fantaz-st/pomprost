@@ -18,8 +18,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: site.name,
+  metadataBase: new URL(site.url),
+  title: { default: site.name, template: `%s | ${site.name}` },
   description: site.description,
+  openGraph: { siteName: site.name, type: "website" },
 };
 
 export default async function RootLayout({ children }) {

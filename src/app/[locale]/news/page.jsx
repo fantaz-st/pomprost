@@ -1,6 +1,9 @@
-import NewsIndex from "../(sections)/NewsIndex";
+import NewsIndex, { generateNewsIndexMetadata } from "../(sections)/NewsIndex";
 
-export default async function NewsPage({ params }) {
-  const { locale } = await params;
-  return <NewsIndex title="News" locale={locale} />;
+const SEGMENT = "news";
+
+export const generateMetadata = ({ params }) => generateNewsIndexMetadata(params, SEGMENT);
+
+export default function NewsIndexPage({ params }) {
+  return <NewsIndex params={params} segment={SEGMENT} />;
 }

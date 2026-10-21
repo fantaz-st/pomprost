@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Footer({ menuItems = [], locale }) {
   const topLevelLinks = menuItems || [];
-  const externalLinks = site.footer?.links;
+  const externalLinks = site.footer?.links || [];
 
   return (
     <footer className={classes.wrap}>
@@ -18,7 +18,7 @@ export default function Footer({ menuItems = [], locale }) {
             </Typography>
 
             <Typography variant="body2" className={classes.brandText}>
-              {site.footer?.summary?.text[locale]}
+              {site.footer?.summary?.text?.[locale]}
             </Typography>
             <div className={classes.euLogos}>
               <Image src="/images/funded-eu-hr.svg" alt="Financira Europska Unija" width={200} height={80} sizes="(max-width: 900px) 45vw, 200px" className={classes.euLogo} />
@@ -57,7 +57,7 @@ export default function Footer({ menuItems = [], locale }) {
 
         <div className={classes.bottom}>
           <Typography variant="body2" className={classes.copy}>
-            © {new Date().getFullYear()} {locale === "hr" ? site.footer?.copyright?.owner?.hr : site.footer?.copyright?.owner?.en}.{" "}
+            © {new Date().getFullYear()} {site.footer?.copyright?.owner?.[locale]}.{" "}
             {locale === "hr" ? "Sva prava pridržana." : "All rights reserved."}
           </Typography>
 

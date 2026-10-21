@@ -9,7 +9,7 @@ const content = {
     subtitle: "Improvement of Maritime Traffic Sustainability in Split-Dalmatia County",
     text: "A research project focused on safer, greener and more efficient maritime traffic through digitalisation, environmental monitoring and evidence-based decision support.",
     primaryCta: {
-      href: "/en/about-project",
+      href: "/en/project/about",
       label: "About project",
     },
     secondaryCta: {
@@ -28,7 +28,7 @@ const content = {
     subtitle: "Unaprjeđenje održivosti pomorskog prometa u Splitsko-dalmatinskoj županiji",
     text: "Istraživački projekt usmjeren na sigurniji, održiviji i učinkovitiji pomorski promet kroz digitalizaciju, praćenje okoliša i potporu donošenju odluka.",
     primaryCta: {
-      href: "/hr/o-projektu",
+      href: "/hr/projekt/o-projektu",
       label: "O projektu",
     },
     secondaryCta: {

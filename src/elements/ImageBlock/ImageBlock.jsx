@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import NextLink from "next/link";
 import { Box, Typography, Link as MUILink } from "@mui/material";
@@ -30,8 +29,23 @@ export default function ImageBlock({ attributes = {} }) {
     href: linkHref,
     target: target || (!isInternal(linkHref) ? "_blank" : undefined),
     rel: rel || (!isInternal(linkHref) ? "noopener" : undefined),
-    underline: "none",
     ...(isMediaLink ? { "data-fancybox": "gallery", "data-caption": caption || alt || "" } : {}),
+  };
+
+  // Server component: render next/link directly, passing it as MUI's `component` prop isn't serializable.
+  const wrapLink = (el) => {
+    if (!linkProps)
+      return (
+        <a href={url} data-fancybox="gallery" data-caption={caption || alt || ""}>
+          {el}
+        </a>
+      );
+    if (isInternal(linkProps.href)) return <NextLink {...linkProps}>{el}</NextLink>;
+    return (
+      <MUILink underline="none" {...linkProps}>
+        {el}
+      </MUILink>
+    );
   };
 
   const wNum = pxNumber(displayWidth) ?? pxNumber(width) ?? 1200;
@@ -55,19 +69,7 @@ export default function ImageBlock({ attributes = {} }) {
 
     return (
       <Box component="figure" sx={{ m: 0, my: 2, display: "flex", flexDirection: "column", alignItems: justify, width: "100%" }}>
-        {linkProps ? (
-          isInternal(linkProps.href) ? (
-            <MUILink component={NextLink} {...linkProps}>
-              {Img}
-            </MUILink>
-          ) : (
-            <MUILink {...linkProps}>{Img}</MUILink>
-          )
-        ) : (
-          <a href={url} data-fancybox="gallery" data-caption={caption || alt || ""}>
-            {Img}
-          </a>
-        )}
+        {wrapLink(Img)}
         {caption ? (
           <Typography component="figcaption" variant="caption" sx={{ mt: 1, opacity: 0.85, textAlign: "center" }}>
             {caption}
@@ -79,19 +81,7 @@ export default function ImageBlock({ attributes = {} }) {
 
   const imgEl = <Image src={url} width={wNum} height={hNum} alt={commonAlt} quality={100} style={{ width: "100%", height: "auto", display: "block", objectFit }} sizes="(max-width: 360px) 100vw, (max-width: 1024px) 66vw, 50vw" {...(blurDataURL ? { placeholder: "blur", blurDataURL } : {})} />;
 
-  const content = linkProps ? (
-    isInternal(linkProps.href) ? (
-      <MUILink component={NextLink} {...linkProps}>
-        {imgEl}
-      </MUILink>
-    ) : (
-      <MUILink {...linkProps}>{imgEl}</MUILink>
-    )
-  ) : (
-    <a href={url} data-fancybox="gallery" data-caption={caption || alt || ""}>
-      {imgEl}
-    </a>
-  );
+  const content = wrapLink(imgEl);
 
   return (
     <Box

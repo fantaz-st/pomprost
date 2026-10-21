@@ -2,9 +2,10 @@ import classes from "./HomeNews.module.css";
 import { Box, Container, Stack, Typography, Button } from "@mui/material";
 import Link from "next/link";
 import PostCard from "@/components/PostCard/PostCard";
+import { newsHref } from "@/lib/urls";
 
 const HomeNews = ({ data, locale }) => {
-  const newsBase = locale === "hr" ? "/hr/novosti" : "/en/news";
+  const newsBase = newsHref(locale);
   const posts = data?.posts?.nodes || [];
 
   return (

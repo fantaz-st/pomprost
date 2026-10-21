@@ -1,4 +1,3 @@
-"use client";
 import { Typography, Box } from "@mui/material";
 import classes from "./QuoteBlock.module.css";
 import parseHtml from "@/functions/parser";

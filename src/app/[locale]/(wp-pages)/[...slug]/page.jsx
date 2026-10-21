@@ -1,28 +1,67 @@
-import { wpFetch } from "@/lib/wpFetch";
-import { PAGE_BY_PATH } from "@/lib/queries";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Box, Container, Typography } from "@mui/material";
 import BlockRenderer from "@/components/BlockRenderer/BlockRenderer";
+import { SetAlternates } from "@/components/LanguageSwitch/Alternates";
 import Image from "next/image";
 import Link from "next/link";
 import classes from "./page.module.css";
 import { fmtDate } from "@/functions/date";
+import { getPageByPath, parseBlocks } from "@/lib/content";
+import { buildAlternates, metadataLanguages, wpUriToHref } from "@/lib/urls";
 
 import HomeIcon from "@mui/icons-material/Home";
 
-export const revalidate = 300;
+const copy = {
+  hr: { home: "Početna", updated: "Ažurirano", subpages: "Podstranice" },
+  en: { home: "Home", updated: "Updated", subpages: "Subpages" },
+};
 
-export default async function WpPage(props) {
-  const { slug } = await props.params;
+const safeDecode = (s) => {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+};
+
+async function loadPage(params) {
+  const { slug, locale } = await params;
   const segments = Array.isArray(slug) ? slug : [slug].filter(Boolean);
-  const path = `/${segments.join("/")}/`;
+  const page = await getPageByPath(`/${segments.join("/")}/`);
+  if (!page) return { locale, page: null };
 
-  const pageData = await wpFetch(PAGE_BY_PATH, { path });
+  // WP resolves loose paths (/o-projektu/, or an hr slug under /en/), so compare against the canonical URL.
+  const pageLocale = page.language?.slug?.toLowerCase() || locale;
+  const canonical = wpUriToHref(page.uri, pageLocale);
+  const requested = `/${locale}/${segments.join("/")}`;
+  const alternates = buildAlternates(pageLocale, canonical, page.translations, (t, lang) => wpUriToHref(t.uri, lang));
 
-  const page = pageData?.page;
-  if (!page) return notFound();
+  return { locale, page, canonical, isCanonical: safeDecode(canonical) === safeDecode(requested), alternates };
+}
 
-  const blocks = Array.isArray(page.blocks) ? page.blocks : typeof page.blocks === "string" ? JSON.parse(page.blocks) : [];
+export async function generateMetadata({ params }) {
+  const { page, canonical, alternates } = await loadPage(params);
+  if (!page) return {};
+
+  const image = page.featuredImage?.node;
+  return {
+    title: page.title,
+    alternates: { canonical, languages: metadataLanguages(alternates) },
+    openGraph: {
+      title: page.title,
+      modifiedTime: page.modified,
+      images: image?.sourceUrl ? [{ url: image.sourceUrl, alt: image.altText || page.title }] : undefined,
+    },
+  };
+}
+
+export default async function WpPage({ params }) {
+  const { locale, page, canonical, isCanonical, alternates } = await loadPage(params);
+  if (!page) notFound();
+  if (!isCanonical) redirect(canonical);
+
+  const t = copy[locale] || copy.hr;
+  const blocks = parseBlocks(page.blocks);
 
   const ancestors = page.ancestors?.nodes || [];
   const children = page.children?.nodes || [];
@@ -30,11 +69,12 @@ export default async function WpPage(props) {
 
   return (
     <Box component="article" className={classes.article}>
+      <SetAlternates alternates={alternates} />
+
       <Container className={classes.container}>
         <header className={classes.header}>
           <nav className={classes.breadcrumbs} aria-label="Breadcrumb">
-            <Link href="/" className={classes.crumb}>
-              {/* Početna stranica */}
+            <Link href={`/${locale}`} className={classes.crumb} aria-label={t.home}>
               <HomeIcon />
             </Link>
 
@@ -44,7 +84,7 @@ export default async function WpPage(props) {
               .map((a) => (
                 <span key={a.id} className={classes.crumbRow}>
                   <span className={classes.sep}>/</span>
-                  <Link href={a.uri} className={classes.crumb}>
+                  <Link href={wpUriToHref(a.uri, locale)} className={classes.crumb}>
                     {a.title}
                   </Link>
                 </span>
@@ -56,13 +96,15 @@ export default async function WpPage(props) {
             </span>
           </nav>
 
-          <Typography variant="h2" className={classes.title} data-aos="fade-up">
+          <Typography variant="h2" component="h1" className={classes.title} data-aos="fade-up">
             {page.title}
           </Typography>
 
           {page.modified ? (
             <div className={classes.meta} data-aos="fade-up" data-aos-delay="90">
-              <span className={classes.metaText}>Ažurirano {fmtDate(page.modified)}</span>
+              <span className={classes.metaText}>
+                {t.updated} {fmtDate(page.modified, locale)}
+              </span>
             </div>
           ) : null}
         </header>
@@ -88,13 +130,13 @@ export default async function WpPage(props) {
 
         {children.length ? (
           <section className={classes.subpages} data-aos="fade-up" data-aos-delay="160">
-            <Typography variant="h6" className={classes.subpagesTitle}>
-              Subpages
+            <Typography variant="h6" component="h2" className={classes.subpagesTitle}>
+              {t.subpages}
             </Typography>
 
             <div className={classes.subpagesGrid}>
               {children.map((c) => (
-                <Link key={c.id} href={c.uri} className={classes.subpageCard}>
+                <Link key={c.id} href={wpUriToHref(c.uri, locale)} className={classes.subpageCard}>
                   <span className={classes.subpageLabel}>{c.title}</span>
                   <span className={classes.subpageArrow}>→</span>
                 </Link>

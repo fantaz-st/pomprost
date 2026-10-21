@@ -1,38 +1,69 @@
-import { wpFetch } from "@/lib/wpFetch";
-import { POST_BY_SLUG } from "@/lib/queries";
 import { notFound } from "next/navigation";
 import { Box, Container, Typography } from "@mui/material";
 import BlockRenderer from "@/components/BlockRenderer/BlockRenderer";
+import { SetAlternates } from "@/components/LanguageSwitch/Alternates";
 import Image from "next/image";
 import classes from "./NewsPost.module.css";
-import { wpLangFromLocale } from "@/lib/lang";
+import { getPostBySlug, parseBlocks, stripHtml } from "@/lib/content";
+import { buildAlternates, metadataLanguages, newsHref } from "@/lib/urls";
+import { routes } from "@/settings/routes";
 import { fmtDate } from "@/functions/date";
 
-export const revalidate = 300;
+const backLabels = { hr: "Novosti", en: "News" };
 
-export default async function NewsPost({ params, backHref, backLabel }) {
+const postAlternates = (p, locale) => buildAlternates(locale, newsHref(locale, p.slug), p.translations, (t, lang) => newsHref(lang, t.slug));
+
+export async function generateNewsPostMetadata(params, segment) {
   const { slug, locale } = await params;
+  if (routes[locale]?.news !== segment) return {};
 
-  const data = await wpFetch(POST_BY_SLUG, { slug, lang: wpLangFromLocale(locale) });
-  const p = data?.posts?.nodes?.[0];
-  if (!p) return notFound();
+  const p = await getPostBySlug(slug, locale);
+  if (!p) return {};
 
-  const blocks = Array.isArray(p.blocks) ? p.blocks : typeof p.blocks === "string" ? JSON.parse(p.blocks) : [];
+  const description = stripHtml(p.excerpt) || undefined;
+  const image = p.featuredImage?.node;
+
+  return {
+    title: p.title,
+    description,
+    alternates: { canonical: newsHref(locale, p.slug), languages: metadataLanguages(postAlternates(p, locale)) },
+    openGraph: {
+      type: "article",
+      title: p.title,
+      description,
+      publishedTime: p.date,
+      modifiedTime: p.modified,
+      images: image?.sourceUrl ? [{ url: image.sourceUrl, alt: image.altText || p.title }] : undefined,
+    },
+  };
+}
+
+export default async function NewsPost({ params, segment }) {
+  const { slug, locale } = await params;
+  // /hr/news/... and /en/novosti/... would otherwise render duplicates of the real post.
+  if (routes[locale]?.news !== segment) notFound();
+
+  const p = await getPostBySlug(slug, locale);
+  if (!p) notFound();
+
+  const blocks = parseBlocks(p.blocks);
 
   return (
     <Container className={classes.container}>
+      <SetAlternates alternates={postAlternates(p, locale)} />
+
       <div className={classes.top}>
-        <a href={backHref} className={classes.back}>
-          ← {backLabel}
+        <a href={newsHref(locale)} className={classes.back}>
+          ← {backLabels[locale] || backLabels.hr}
         </a>
       </div>
 
-      <Typography variant="h2" className={classes.title} data-aos="fade-up" mb={3}>
+      <Typography variant="h2" component="h1" className={classes.title} data-aos="fade-up" mb={3}>
         {p.title}
       </Typography>
       {p.date ? (
         <div className={classes.date} data-aos="fade-up" data-aos-delay="150">
-          {fmtDate(p.date)}
+          {fmtDate(p.date, locale)}
         </div>
       ) : null}
 

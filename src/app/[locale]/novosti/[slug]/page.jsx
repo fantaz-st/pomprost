@@ -1,5 +1,9 @@
-import NewsPost from "../../(sections)/NewsPost/NewsPost";
+import NewsPost, { generateNewsPostMetadata } from "../../(sections)/NewsPost/NewsPost";
 
-export default async function NewsArticlePage(props) {
-  return <NewsPost params={props.params} backHref="../novosti" backLabel="Novosti" />;
+const SEGMENT = "novosti";
+
+export const generateMetadata = ({ params }) => generateNewsPostMetadata(params, SEGMENT);
+
+export default function NewsPostPage({ params }) {
+  return <NewsPost params={params} segment={SEGMENT} />;
 }
