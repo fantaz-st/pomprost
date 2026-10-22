@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PomProST
 
-## Getting Started
+Website for the PomProST project (Faculty of Maritime Studies, University of Split): a Next.js front end for a headless WordPress (WPGraphQL + Polylang).
 
-First, run the development server:
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Environment variables (`.env`):
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `WP_GRAPHQL_ENDPOINT` | yes | WPGraphQL URL, e.g. `https://pomprost-be.pfst.hr/graphql` |
+| `NEXT_PUBLIC_SITE_URL` | production | Public origin, used for canonical/hreflang URLs, Open Graph and `sitemap.xml` (defaults to `http://localhost:3000`) |
+| `REVALIDATE_SECRET` | for instant updates | Shared secret for the WordPress revalidation webhook |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content updates
 
-## Learn More
+WordPress data is cached for 5 minutes. To publish edits immediately, have WordPress call the revalidation endpoint on save, e.g. in the theme's `functions.php`:
 
-To learn more about Next.js, take a look at the following resources:
+```php
+function pomprost_revalidate() {
+  wp_remote_post('https://<site>/api/revalidate', [
+    'headers'  => ['x-revalidate-secret' => '<REVALIDATE_SECRET>'],
+    'blocking' => false,
+  ]);
+}
+add_action('save_post', 'pomprost_revalidate');
+add_action('wp_update_nav_menu', 'pomprost_revalidate');
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/[locale]/`: routes; `[locale]/layout.js` is the root layout (sets `<html lang>`).
+  - `(wp-pages)/[...slug]`: any WordPress page, resolved by URI.
+  - `news/`, `novosti/`: post index and posts (`en` and `hr` URL segments, see `src/settings/routes.js`).
+- `src/proxy.js`: redirects unprefixed URLs to `/<locale>/...` (cookie, else `hr`).
+- `src/i18n/`: all UI copy, one dictionary per language.
+- `src/settings/`: site config, locales, route segments.
+- `src/components/BlockRenderer` + `src/elements/`: Gutenberg block renderers (server components).
+- `src/lib/urls.js`: WordPress URI → front-end path mapping. Polylang's default language (`en`) has no URL prefix in WordPress; the front end always prefixes the locale.

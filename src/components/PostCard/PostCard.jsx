@@ -4,6 +4,7 @@ import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneR
 import { fmtDateShort } from "@/functions/date";
 import { stripHtml } from "@/lib/content";
 import { newsHref } from "@/lib/urls";
+import { getDictionary } from "@/i18n";
 import classes from "./PostCard.module.css";
 
 export default function PostCard({ slug, title, date, excerpt, locale = "hr" }) {
@@ -42,7 +43,7 @@ export default function PostCard({ slug, title, date, excerpt, locale = "hr" }) 
             ) : null}
 
             <Typography component="span" className={classes.readMore}>
-              {locale === "hr" ? "Pročitaj vijest" : "Read more"}
+              {getDictionary(locale).news.readMore}
               <span className={classes.arrow}>→</span>
             </Typography>
           </div>

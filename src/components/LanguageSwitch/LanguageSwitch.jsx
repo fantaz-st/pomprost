@@ -1,7 +1,7 @@
 "use client";
 
 import { FormControl, MenuItem, Select } from "@mui/material";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { i18n } from "@/settings/i18n";
 import { setLocalePref } from "@/functions/setLocalePref";
 import { translatePathname } from "@/functions/translatePathname";
@@ -10,15 +10,9 @@ import { useAlternates } from "./Alternates";
 export default function LanguageSwitch({ locale, size = "small", fullWidth = false }) {
   const router = useRouter();
   const pathname = usePathname();
-  const sp = useSearchParams();
   const alternates = useAlternates();
 
   const currentValue = locale || i18n.defaultLocale;
-
-  const pushWithQuery = (href) => {
-    const query = sp?.toString();
-    router.push(query ? `${href}?${query}` : href);
-  };
 
   const handleChange = (e) => {
     const nextLocale = String(e.target.value || "");
@@ -28,11 +22,11 @@ export default function LanguageSwitch({ locale, size = "small", fullWidth = fal
 
     // WP pages/posts publish their translations; an untranslated one falls back to that locale's home.
     if (alternates && nextLocale in alternates) {
-      pushWithQuery(alternates[nextLocale] || `/${nextLocale}`);
+      router.push(alternates[nextLocale] || `/${nextLocale}`);
       return;
     }
 
-    pushWithQuery(translatePathname(pathname, nextLocale));
+    router.push(translatePathname(pathname, nextLocale));
   };
 
   return (

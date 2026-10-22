@@ -1,11 +1,12 @@
 import classes from "./HomeNews.module.css";
-import { Box, Container, Stack, Typography, Button } from "@mui/material";
-import Link from "next/link";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import PostCard from "@/components/PostCard/PostCard";
+import NextButtonLink from "@/components/NextButtonLink/NextButtonLink";
 import { newsHref } from "@/lib/urls";
+import { getDictionary } from "@/i18n";
 
 const HomeNews = ({ data, locale }) => {
-  const newsBase = newsHref(locale);
+  const t = getDictionary(locale).news;
   const posts = data?.posts?.nodes || [];
 
   return (
@@ -14,15 +15,13 @@ const HomeNews = ({ data, locale }) => {
         <Stack direction={{ xs: "column", md: "row" }} alignItems={{ xs: "flex-start", md: "flex-end" }} justifyContent="space-between" className={classes.top} data-aos="fade-up">
           <Box className={classes.heading}>
             <Typography variant="h2" className={classes.title}>
-              {locale === "hr" ? "Najnovije vijesti" : "Latest news"}
+              {t.latest}
             </Typography>
           </Box>
 
-          <Link href={newsBase} className={classes.ctaLink}>
-            <Button component="span" variant="outlined" className={classes.ctaBtn}>
-              {locale === "hr" ? "Sve novosti" : "All news"}
-            </Button>
-          </Link>
+          <NextButtonLink href={newsHref(locale)} variant="outlined" className={`${classes.ctaLink} ${classes.ctaBtn}`}>
+            {t.all}
+          </NextButtonLink>
         </Stack>
 
         {posts.length > 0 && (
@@ -37,6 +36,6 @@ const HomeNews = ({ data, locale }) => {
       </Container>
     </section>
   );
-};
+}
 
 export default HomeNews;

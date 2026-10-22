@@ -2,8 +2,8 @@ import NewsIndex, { generateNewsIndexMetadata } from "../(sections)/NewsIndex";
 
 const SEGMENT = "novosti";
 
-export const generateMetadata = ({ params }) => generateNewsIndexMetadata(params, SEGMENT);
+export const generateMetadata = ({ params, searchParams }) => generateNewsIndexMetadata(params, searchParams, SEGMENT);
 
-export default function NewsIndexPage({ params }) {
-  return <NewsIndex params={params} segment={SEGMENT} />;
+export default function NewsIndexPage({ params, searchParams }) {
+  return <NewsIndex params={params} searchParams={searchParams} segment={SEGMENT} />;
 }

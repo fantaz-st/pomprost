@@ -13,7 +13,7 @@ import DetailsBlock from "@/elements/DetailsBlock/DetailsBlock";
 import TableBlock from "@/elements/TableBlock/TableBlock";
 import SeparatorBlock from "@/elements/SeparatorBlock/SeparatorBlock";
 
-export default function BlockRenderer({ block }) {
+export default function BlockRenderer({ block, locale }) {
   if (!block) return null;
   const { name, attributes = {}, dynamicContent, innerBlocks } = block;
   switch (name) {
@@ -26,9 +26,9 @@ export default function BlockRenderer({ block }) {
     case "core/spacer":
       return <Spacer height={attributes.height} divider={attributes.divider} />;
     case "core/columns":
-      return <ColumnsBlock innerBlocks={innerBlocks} attributes={attributes} />;
+      return <ColumnsBlock innerBlocks={innerBlocks} attributes={attributes} locale={locale} />;
     case "core/file":
-      return <FileBlock attributes={attributes} />;
+      return <FileBlock attributes={attributes} locale={locale} />;
     case "core/image":
       return <ImageBlock attributes={attributes} />;
     case "core/list":
@@ -38,16 +38,16 @@ export default function BlockRenderer({ block }) {
     case "core/separator":
       return <SeparatorBlock attributes={attributes} />;
     case "core/group":
-      return <GroupBlock block={block} />;
+      return <GroupBlock block={block} locale={locale} />;
     case "core/details": {
       const open = !!attributes.showContent;
       const summary = attributes.summary || "";
-      return <DetailsBlock summary={summary} open={open} innerBlocks={innerBlocks} />;
+      return <DetailsBlock summary={summary} open={open} innerBlocks={innerBlocks} locale={locale} />;
     }
     case "core/table":
       return <TableBlock headers={attributes.headers || []} rows={attributes.rows || []} caption={attributes.caption || ""} fixed={!!attributes.fixed} />;
 
     default:
-      return dynamicContent ? <HtmlBlock html={dynamicContent} /> : innerBlocks?.length ? innerBlocks.map((b, i) => <BlockRenderer key={b?.clientId || i} block={b} />) : null;
+      return dynamicContent ? <HtmlBlock html={dynamicContent} /> : innerBlocks?.length ? innerBlocks.map((b, i) => <BlockRenderer key={b?.clientId || i} block={b} locale={locale} />) : null;
   }
 }

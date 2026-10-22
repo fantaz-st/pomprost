@@ -1,7 +1,7 @@
-import site from "@/settings/site";
+import { getDictionary } from "@/i18n";
 import classes from "./BackgroundHero.module.css";
 import Image from "next/image";
-import { Container, Stack, Typography, Button } from "@mui/material";
+import { Container, Stack, Typography } from "@mui/material";
 
 const getAlignClass = (align, classes) => {
   const v = align?.vertical || "center";
@@ -12,13 +12,8 @@ const getAlignClass = (align, classes) => {
 export default function BackgroundHero({ locale, hero }) {
   if (!hero) return null;
 
-  const content = hero.content?.[locale] || {};
+  const { title, subtitle } = getDictionary(locale).hero;
   const media = hero.media || {};
-  const cta = content.cta;
-
-  const title = content.title || site.name;
-  const subtitle = content.subtitle || site.description;
-  const kicker = content.kicker;
 
   const heightDesktop = hero.height?.desktop || "100vh";
   const heightMobile = hero.height?.mobile || "70vh";
@@ -62,29 +57,15 @@ export default function BackgroundHero({ locale, hero }) {
       <Container className={classes.container}>
         <div className={`${classes.content} ${alignClass}`}>
           <Stack spacing={2} className={classes.stack}>
-            {/* {kicker ? (
-              <Typography className={classes.kicker} component="div" data-aos="fade-up">
-                {kicker}
-              </Typography>
-            ) : null} */}
-
-            <Typography variant="h1" component="h1" className={classes.title} data-aos="fade-up" data-aos-delay={kicker ? "100" : "0"}>
+            <Typography variant="h1" component="h1" className={classes.title}>
               {title}
             </Typography>
 
             {subtitle ? (
-              <Typography variant="body1" component="p" className={classes.subtitle} data-aos="fade-up" data-aos-delay={kicker ? "200" : "100"}>
+              <Typography variant="body1" component="p" className={classes.subtitle}>
                 {subtitle}
               </Typography>
             ) : null}
-
-            {/* {cta?.href && cta?.label ? (
-              <div className={classes.actions}>
-                <Button variant="outlined" href={cta.href}>
-                  {cta.label}
-                </Button>
-              </div>
-            ) : null} */}
           </Stack>
         </div>
       </Container>

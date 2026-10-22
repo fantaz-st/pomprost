@@ -1,9 +1,11 @@
+// Structural config only; all user-facing copy lives in src/i18n.
 const site = {
   name: "PomProST",
-  description: "Unaprjeđenje održivosti pomorskog prometa u Splitsko-dalmatinskoj županiji",
-  locale: "en",
   // Absolute origin for canonical/hreflang URLs, Open Graph and the sitemap.
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+
+  // WordPress hosts; links to them in content are rewritten to front-end paths (uploads stay absolute).
+  cmsHosts: ["pomprost-be.pfst.hr", "cms.pfst.hr"],
 
   menu: {
     hr: "main-menu-hr",
@@ -27,58 +29,21 @@ const site = {
       background: "#F8FBFB",
       color: "#0E3A5D",
     },
+    // Used by the "background" and "split" variants.
     media: {
       type: "image",
-      src: "/images/pomprost-hero.jpg",
-      alt: "PomProST project hero",
+      src: "/images/hero.png",
+      alt: "",
       size: "cover",
       position: "center center",
-    },
-    content: {
-      en: {
-        kicker: "institutional project",
-        title: "PomProST",
-        subtitle: "Improvement of Maritime Traffic Sustainability in Split-Dalmatia County",
-        cta: {
-          href: "/en/project/about",
-          label: "Learn More",
-        },
-      },
-      hr: {
-        kicker: "institucionalni projekt",
-        title: "PomProST",
-        subtitle: "Unaprjeđenje održivosti pomorskog prometa u Splitsko-dalmatinskoj županiji",
-        cta: {
-          href: "/hr/projekt/o-projektu",
-          label: "Saznaj više",
-        },
-      },
     },
   },
 
   footer: {
-    variant: "simple",
-
-    summary: {
-      title: "PomProST",
-      text: {
-        en: "Improvement of Maritime Traffic Sustainability in Split-Dalmatia County",
-        hr: "Unaprjeđenje održivosti pomorskog prometa u Splitsko-dalmatinskoj županiji",
-      },
-    },
-
     links: [
       { label: "PFST", href: "https://www.pfst.unist.hr" },
       { label: "University of Split", href: "https://www.unist.hr" },
     ],
-
-    copyright: {
-      owner: {
-        en: "Faculty of Maritime Studies, University of Split",
-        hr: "Sveučilište u Splitu, Pomorski fakultet",
-      },
-      year: "auto",
-    },
   },
 
   backToTop: {

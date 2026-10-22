@@ -1,17 +1,37 @@
 import { i18n } from "@/settings/i18n";
 import { routes } from "@/settings/routes";
+import site from "@/settings/site";
 
 const LOCALE_PREFIX = new RegExp(`^/(${i18n.locales.join("|")})(/|$)`);
-const ABSOLUTE = /^([a-z]+:|#)/i;
+const NON_PAGE = /^([a-z][a-z0-9+.-]*:|#|\/\/)/i; // absolute URLs, mailto:, tel:, anchors
+const WP_ASSET = /^\/(wp-content|wp-admin|wp-includes|wp-json)\//;
 
-// Polylang omits the prefix for WP's default language (en), the front end always has one.
-export function wpUriToHref(uri, locale) {
-  if (!uri) return `/${locale}`;
-  if (ABSOLUTE.test(uri)) return uri;
+// Polylang omits the prefix for WP's default language (en); the front end always has one.
+export function wpUriToHref(uri) {
+  if (!uri) return `/${i18n.defaultLocale}`;
+  if (NON_PAGE.test(uri)) return uri;
 
   const path = uri.startsWith("/") ? uri : `/${uri}`;
-  const href = LOCALE_PREFIX.test(path) ? path : `/${locale}${path}`;
+  const href = LOCALE_PREFIX.test(path) ? path : `/${i18n.wpDefaultLocale}${path}`;
   return href.length > 1 ? href.replace(/\/+$/, "") : href;
+}
+
+// Maps any href found in WP content to what the front end should link to:
+// CMS page URLs and bare WP paths become locale-prefixed front-end paths, everything else is left alone.
+export function contentHref(href) {
+  // Only root-relative paths and http(s) URLs can point at WP; anchors, mailto:, tel: etc. pass through.
+  if (!href || !/^(\/(?!\/)|https?:\/\/)/i.test(href)) return href;
+
+  let url;
+  try {
+    url = new URL(href, `https://${site.cmsHosts[0]}`);
+  } catch {
+    return href;
+  }
+
+  if (!site.cmsHosts.includes(url.hostname)) return href;
+  if (WP_ASSET.test(url.pathname)) return url.href;
+  return `${wpUriToHref(url.pathname)}${url.search}${url.hash}`;
 }
 
 export function newsHref(locale, slug) {

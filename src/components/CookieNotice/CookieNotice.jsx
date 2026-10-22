@@ -3,24 +3,11 @@
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { Button, Typography } from "@mui/material";
+import { getDictionary } from "@/i18n";
 import classes from "./CookieNotice.module.css";
 
 const STORAGE_KEY = "cookie_notice_seen";
 
-const copy = {
-  hr: {
-    text: "Ova web stranica koristi funkcionalni kolačić za pamćenje odabranog jezika.",
-    link: "Saznaj više",
-    href: "/hr/politika-privatnosti",
-    button: "U redu",
-  },
-  en: {
-    text: "This website uses a functional cookie to remember your selected language.",
-    link: "Learn more",
-    href: "/en/privacy-policy",
-    button: "OK",
-  },
-};
 
 function subscribe(callback) {
   window.addEventListener("cookie-notice-change", callback);
@@ -42,7 +29,7 @@ function getClientSnapshot() {
 export default function CookieNotice({ locale = "hr" }) {
   const visible = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
 
-  const t = copy[locale] || copy.hr;
+  const t = getDictionary(locale).cookie;
 
   const handleClose = () => {
     try {

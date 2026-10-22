@@ -79,7 +79,7 @@ export default function ImageBlock({ attributes = {} }) {
     );
   }
 
-  const imgEl = <Image src={url} width={wNum} height={hNum} alt={commonAlt} quality={100} style={{ width: "100%", height: "auto", display: "block", objectFit }} sizes="(max-width: 360px) 100vw, (max-width: 1024px) 66vw, 50vw" {...(blurDataURL ? { placeholder: "blur", blurDataURL } : {})} />;
+  const imgEl = <Image src={url} width={wNum} height={hNum} alt={commonAlt} style={{ width: "100%", height: "auto", display: "block", objectFit }} sizes="(max-width: 360px) 100vw, (max-width: 1024px) 66vw, 50vw" {...(blurDataURL ? { placeholder: "blur", blurDataURL } : {})} />;
 
   const content = wrapLink(imgEl);
 

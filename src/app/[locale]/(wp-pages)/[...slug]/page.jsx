@@ -6,15 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import classes from "./page.module.css";
 import { fmtDate } from "@/functions/date";
-import { getPageByPath, parseBlocks } from "@/lib/content";
-import { buildAlternates, metadataLanguages, wpUriToHref } from "@/lib/urls";
+import { getPageByPath, getPostBySlug, parseBlocks } from "@/lib/content";
+import { buildAlternates, metadataLanguages, newsHref, wpUriToHref } from "@/lib/urls";
+import { getDictionary } from "@/i18n";
 
 import HomeIcon from "@mui/icons-material/Home";
-
-const copy = {
-  hr: { home: "Početna", updated: "Ažurirano", subpages: "Podstranice" },
-  en: { home: "Home", updated: "Updated", subpages: "Subpages" },
-};
 
 const safeDecode = (s) => {
   try {
@@ -28,13 +24,13 @@ async function loadPage(params) {
   const { slug, locale } = await params;
   const segments = Array.isArray(slug) ? slug : [slug].filter(Boolean);
   const page = await getPageByPath(`/${segments.join("/")}/`);
-  if (!page) return { locale, page: null };
+  if (!page) return { locale, segments, page: null };
 
   // WP resolves loose paths (/o-projektu/, or an hr slug under /en/), so compare against the canonical URL.
   const pageLocale = page.language?.slug?.toLowerCase() || locale;
-  const canonical = wpUriToHref(page.uri, pageLocale);
+  const canonical = wpUriToHref(page.uri);
   const requested = `/${locale}/${segments.join("/")}`;
-  const alternates = buildAlternates(pageLocale, canonical, page.translations, (t, lang) => wpUriToHref(t.uri, lang));
+  const alternates = buildAlternates(pageLocale, canonical, page.translations, (t) => wpUriToHref(t.uri));
 
   return { locale, page, canonical, isCanonical: safeDecode(canonical) === safeDecode(requested), alternates };
 }
@@ -56,11 +52,17 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function WpPage({ params }) {
-  const { locale, page, canonical, isCanonical, alternates } = await loadPage(params);
-  if (!page) notFound();
+  const { locale, segments, page, canonical, isCanonical, alternates } = await loadPage(params);
+
+  if (!page) {
+    // WP links posts as /hr/<slug>/ (no news segment), e.g. when an editor links one from content.
+    const post = segments.length === 1 ? await getPostBySlug(segments[0], locale) : null;
+    if (post) redirect(newsHref(locale, post.slug));
+    notFound();
+  }
   if (!isCanonical) redirect(canonical);
 
-  const t = copy[locale] || copy.hr;
+  const t = getDictionary(locale).page;
   const blocks = parseBlocks(page.blocks);
 
   const ancestors = page.ancestors?.nodes || [];
@@ -73,7 +75,7 @@ export default async function WpPage({ params }) {
 
       <Container className={classes.container}>
         <header className={classes.header}>
-          <nav className={classes.breadcrumbs} aria-label="Breadcrumb">
+          <nav className={classes.breadcrumbs} aria-label={t.breadcrumb}>
             <Link href={`/${locale}`} className={classes.crumb} aria-label={t.home}>
               <HomeIcon />
             </Link>
@@ -84,7 +86,7 @@ export default async function WpPage({ params }) {
               .map((a) => (
                 <span key={a.id} className={classes.crumbRow}>
                   <span className={classes.sep}>/</span>
-                  <Link href={wpUriToHref(a.uri, locale)} className={classes.crumb}>
+                  <Link href={wpUriToHref(a.uri)} className={classes.crumb}>
                     {a.title}
                   </Link>
                 </span>
@@ -96,12 +98,12 @@ export default async function WpPage({ params }) {
             </span>
           </nav>
 
-          <Typography variant="h2" component="h1" className={classes.title} data-aos="fade-up">
+          <Typography variant="h2" component="h1" className={classes.title}>
             {page.title}
           </Typography>
 
           {page.modified ? (
-            <div className={classes.meta} data-aos="fade-up" data-aos-delay="90">
+            <div className={classes.meta}>
               <span className={classes.metaText}>
                 {t.updated} {fmtDate(page.modified, locale)}
               </span>
@@ -110,7 +112,7 @@ export default async function WpPage({ params }) {
         </header>
 
         {hasHero ? (
-          <div className={classes.heroMedia} data-aos="fade-up" data-aos-delay="140">
+          <div className={classes.heroMedia}>
             <Image
               src={page.featuredImage.node.sourceUrl}
               alt={page.featuredImage.node.altText || page.title}
@@ -122,21 +124,21 @@ export default async function WpPage({ params }) {
           </div>
         ) : null}
 
-        <div className={classes.content} data-aos="fade-up" data-aos-delay={hasHero ? "220" : "120"}>
+        <div className={classes.content}>
           {blocks.map((block, i) => (
-            <BlockRenderer block={block} key={block?.clientId || i} />
+            <BlockRenderer block={block} locale={locale} key={block?.clientId || i} />
           ))}
         </div>
 
         {children.length ? (
-          <section className={classes.subpages} data-aos="fade-up" data-aos-delay="160">
+          <section className={classes.subpages} data-aos="fade-up">
             <Typography variant="h6" component="h2" className={classes.subpagesTitle}>
               {t.subpages}
             </Typography>
 
             <div className={classes.subpagesGrid}>
               {children.map((c) => (
-                <Link key={c.id} href={wpUriToHref(c.uri, locale)} className={classes.subpageCard}>
+                <Link key={c.id} href={wpUriToHref(c.uri)} className={classes.subpageCard}>
                   <span className={classes.subpageLabel}>{c.title}</span>
                   <span className={classes.subpageArrow}>→</span>
                 </Link>

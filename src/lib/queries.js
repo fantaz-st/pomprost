@@ -1,31 +1,3 @@
-export const LATEST_POSTS = `
-  query Latest($first: Int = 6, $lang: LanguageCodeFilterEnum!) {
-    posts(
-      first: $first
-      where: {
-        status: PUBLISH
-        orderby: { field: DATE, order: DESC }
-        language: $lang
-      }
-    ) {
-      nodes {
-        id
-        slug
-        uri
-        title
-        date
-        excerpt
-        language { slug }
-        translations {
-          slug
-          uri
-          language { slug }
-        }
-      }
-    }
-  }
-`;
-
 export const ALL_NEWS = `
   query AllNews(
     $first: Int = 12,
@@ -118,24 +90,6 @@ export const ALL_PAGES = `
           slug
           language { slug }
         }
-      }
-    }
-  }
-`;
-
-export const ALL_PAGES_ALT = `
-  query AllPagesAlt {
-    pages(
-      where: {
-        status: PUBLISH
-      }
-    ) {
-      nodes {
-        databaseId
-        parentDatabaseId
-        slug
-        title
-        uri
       }
     }
   }

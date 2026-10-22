@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import site from "@/settings/site";
+import { getDictionary } from "@/i18n";
 import classes from "./BackToTop.module.css";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-export default function BackToTop() {
-    const [visible, setVisible] = useState(false);
-    const threshold = site.backToTop.showAfter || 300;
+export default function BackToTop({ locale }) {
+  const [visible, setVisible] = useState(false);
+  const threshold = site.backToTop.showAfter || 300;
 
   useEffect(() => {
     const onScroll = () => {
@@ -29,7 +30,7 @@ export default function BackToTop() {
       className={`${classes.button} ${visible ? classes.visible : ""} ${
         site.backToTop.position === "left" ? classes.left : classes.right
       }`}
-      aria-label="Back to top"
+      aria-label={getDictionary(locale).backToTop}
     >
       <KeyboardArrowUpIcon />
     </button>

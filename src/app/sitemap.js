@@ -16,7 +16,7 @@ async function localeEntries(locale) {
   return [
     { url: abs(`/${locale}`), changeFrequency: "weekly", priority: 1 },
     { url: abs(newsHref(locale)), changeFrequency: "weekly", priority: 0.8 },
-    ...(pages?.pages?.nodes || []).map((p) => ({ url: abs(wpUriToHref(p.uri, locale)), lastModified: p.modified })),
+    ...(pages?.pages?.nodes || []).map((p) => ({ url: abs(wpUriToHref(p.uri)), lastModified: p.modified })),
     ...(posts?.posts?.nodes || []).map((p) => ({ url: abs(newsHref(locale, p.slug)), lastModified: p.date })),
   ];
 }

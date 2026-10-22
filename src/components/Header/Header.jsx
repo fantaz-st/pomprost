@@ -8,15 +8,17 @@ import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import LanguageSwitch from "../LanguageSwitch/LanguageSwitch";
+import { getDictionary } from "@/i18n";
 
 const Header = ({ menuItems = [], locale }) => {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState({});
   const [scrolled, setScrolled] = useState(false);
 
-  const menuTree = useMemo(() => menuItems, [menuItems]);
+  const menuTree = menuItems;
+  const t = getDictionary(locale).header;
 
   const openDrawer = () => setOpen(true);
 
@@ -107,7 +109,7 @@ const Header = ({ menuItems = [], locale }) => {
         <LanguageSwitch locale={locale} />
 
         <div className={classes.menuMobile}>
-          <IconButton aria-label="Open menu" onClick={openDrawer} className={classes.iconBtn}>
+          <IconButton aria-label={t.openMenu} onClick={openDrawer} className={classes.iconBtn}>
             <MenuIcon />
           </IconButton>
         </div>
@@ -117,7 +119,7 @@ const Header = ({ menuItems = [], locale }) => {
         <div className={classes.drawer}>
           <div className={classes.drawerTop}>
             <Typography variant="h6">{site.name}</Typography>
-            <IconButton aria-label="Close menu" onClick={closeDrawer}>
+            <IconButton aria-label={t.closeMenu} onClick={closeDrawer}>
               <CloseIcon />
             </IconButton>
           </div>
@@ -140,7 +142,8 @@ const Header = ({ menuItems = [], locale }) => {
                         type="button"
                         className={`${classes.expandBtn} ${isOpen ? classes.expandBtnOpen : ""}`}
                         onClick={() => toggleExpand(item.databaseId)}
-                        aria-label="Toggle submenu"
+                        aria-label={t.toggleSubmenu}
+                        aria-expanded={isOpen}
                       >
                         <KeyboardArrowDownIcon />
                       </button>

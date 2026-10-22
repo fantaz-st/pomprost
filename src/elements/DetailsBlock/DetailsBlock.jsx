@@ -2,7 +2,7 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import BlockRenderer from "@/components/BlockRenderer/BlockRenderer";
 
-export default function DetailsBlock({ summary = "", open = false, innerBlocks = [] }) {
+export default function DetailsBlock({ summary = "", open = false, innerBlocks = [], locale }) {
   return (
     <Accordion defaultExpanded={!!open} disableGutters>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -12,7 +12,7 @@ export default function DetailsBlock({ summary = "", open = false, innerBlocks =
       </AccordionSummary>
       <AccordionDetails>
         {(innerBlocks || []).map((inner, i) => (
-          <BlockRenderer key={i} block={inner} />
+          <BlockRenderer key={inner?.clientId || i} block={inner} locale={locale} />
         ))}
       </AccordionDetails>
     </Accordion>

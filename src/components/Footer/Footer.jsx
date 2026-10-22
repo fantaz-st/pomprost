@@ -3,8 +3,10 @@ import classes from "./Footer.module.css";
 import Link from "next/link";
 import { Container, Typography } from "@mui/material";
 import Image from "next/image";
+import { getDictionary } from "@/i18n";
 
 export default function Footer({ menuItems = [], locale }) {
+  const t = getDictionary(locale).footer;
   const topLevelLinks = menuItems || [];
   const externalLinks = site.footer?.links || [];
 
@@ -18,7 +20,7 @@ export default function Footer({ menuItems = [], locale }) {
             </Typography>
 
             <Typography variant="body2" className={classes.brandText}>
-              {site.footer?.summary?.text?.[locale]}
+              {t.summary}
             </Typography>
             <div className={classes.euLogos}>
               <Image src="/images/funded-eu-hr.svg" alt="Financira Europska Unija" width={200} height={80} sizes="(max-width: 900px) 45vw, 200px" className={classes.euLogo} />
@@ -28,7 +30,7 @@ export default function Footer({ menuItems = [], locale }) {
 
           <div className={classes.col}>
             <Typography variant="overline" className={classes.colTitle}>
-              {locale === "hr" ? "Projekt" : "Project"}
+              {t.project}
             </Typography>
 
             <div className={classes.colLinks}>
@@ -42,7 +44,7 @@ export default function Footer({ menuItems = [], locale }) {
 
           <div className={classes.col}>
             <Typography variant="overline" className={classes.colTitle}>
-              {locale === "hr" ? "Poveznice" : "Links"}
+              {t.links}
             </Typography>
 
             <div className={classes.colLinks}>
@@ -57,16 +59,16 @@ export default function Footer({ menuItems = [], locale }) {
 
         <div className={classes.bottom}>
           <Typography variant="body2" className={classes.copy}>
-            © {new Date().getFullYear()} {site.footer?.copyright?.owner?.[locale]}.{" "}
-            {locale === "hr" ? "Sva prava pridržana." : "All rights reserved."}
+            © {new Date().getFullYear()} {t.owner}.{" "}
+            {t.rights}
           </Typography>
 
           <div className={classes.bottomLinks}>
-            <Link href={locale === "hr" ? "/hr/politika-privatnosti" : "/en/privacy-policy"} className={classes.bottomLink}>
-              {locale === "hr" ? "Politika privatnosti" : "Privacy Policy"}
+            <Link href={t.privacy.href} className={classes.bottomLink}>
+              {t.privacy.label}
             </Link>
-            <Link href={locale === "hr" ? "/hr/impressum" : "/en/imprint"} className={classes.bottomLink}>
-              {locale === "hr" ? "Impressum" : "Imprint"}
+            <Link href={t.imprint.href} className={classes.bottomLink}>
+              {t.imprint.label}
             </Link>
           </div>
         </div>

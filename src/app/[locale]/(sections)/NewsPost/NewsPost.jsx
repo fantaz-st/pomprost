@@ -8,8 +8,7 @@ import { getPostBySlug, parseBlocks, stripHtml } from "@/lib/content";
 import { buildAlternates, metadataLanguages, newsHref } from "@/lib/urls";
 import { routes } from "@/settings/routes";
 import { fmtDate } from "@/functions/date";
-
-const backLabels = { hr: "Novosti", en: "News" };
+import { getDictionary } from "@/i18n";
 
 const postAlternates = (p, locale) => buildAlternates(locale, newsHref(locale, p.slug), p.translations, (t, lang) => newsHref(lang, t.slug));
 
@@ -54,21 +53,21 @@ export default async function NewsPost({ params, segment }) {
 
       <div className={classes.top}>
         <a href={newsHref(locale)} className={classes.back}>
-          ← {backLabels[locale] || backLabels.hr}
+          ← {getDictionary(locale).news.title}
         </a>
       </div>
 
-      <Typography variant="h2" component="h1" className={classes.title} data-aos="fade-up" mb={3}>
+      <Typography variant="h2" component="h1" className={classes.title} mb={3}>
         {p.title}
       </Typography>
       {p.date ? (
-        <div className={classes.date} data-aos="fade-up" data-aos-delay="150">
+        <div className={classes.date}>
           {fmtDate(p.date, locale)}
         </div>
       ) : null}
 
       {p.featuredImage?.node?.sourceUrl ? (
-        <Box className={classes.hero} data-aos="fade-up" data-aos-delay="300">
+        <Box className={classes.hero}>
           <Image
             src={p.featuredImage.node.sourceUrl}
             alt={p.featuredImage.node.altText || p.title}
@@ -80,9 +79,9 @@ export default async function NewsPost({ params, segment }) {
         </Box>
       ) : null}
 
-      <div className={classes.content} data-aos="fade-up" data-aos-delay={p.featuredImage ? "450" : "300"}>
+      <div className={classes.content}>
         {blocks.map((block, i) => (
-          <BlockRenderer block={block} key={block?.clientId || i} />
+          <BlockRenderer block={block} locale={locale} key={block?.clientId || i} />
         ))}
       </div>
     </Container>

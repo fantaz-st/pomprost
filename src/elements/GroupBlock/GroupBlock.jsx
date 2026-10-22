@@ -1,7 +1,7 @@
 import BlockRenderer from "@/components/BlockRenderer/BlockRenderer";
 import { Box } from "@mui/material";
 
-const GroupBlock = ({ block }) => {
+const GroupBlock = ({ block, locale }) => {
   const a = block?.attributes || {};
   const isFlex = a.layout?.type === "flex";
   const justifyMap = {
@@ -26,7 +26,7 @@ const GroupBlock = ({ block }) => {
       }}
     >
       {(block.innerBlocks || []).map((inner, i) => (
-        <BlockRenderer key={i} block={inner} />
+        <BlockRenderer key={inner?.clientId || i} block={inner} locale={locale} />
       ))}
     </Box>
   );
