@@ -32,7 +32,7 @@ export default function PostCard({ slug, title, date, excerpt, locale = "hr" }) 
               {date ? fmtDateShort(date, locale) : ""}
             </Typography>
 
-            <Typography variant="h3" className={classes.title}>
+            <Typography variant="h4" className={classes.title}>
               {title}
             </Typography>
 
